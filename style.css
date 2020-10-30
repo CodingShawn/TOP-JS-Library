@@ -1,0 +1,16 @@
+.book {
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+    height: 100px;
+    padding: 5px;
+    border: 1px solid #666666;
+    font-weight: 700;
+    color: #333333;
+}
+
+#bookDisplay {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
