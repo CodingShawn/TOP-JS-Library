@@ -28,6 +28,7 @@ function addBook(event) {
 
 function showBooks() {
     clearDisplay(); //Clear display so no duplicate books will be shown
+    bookIndex = 0
     myLibrary.forEach(book => {
         let bookWrapper = document.createElement("div");
         bookWrapper.classList.add("book-wrapper");
@@ -42,10 +43,11 @@ function showBooks() {
         let bookInfo = showBookInfo(book);
         bookWrapper.appendChild(bookInfo);
 
-        // let deleteBtn = showDeleteButton();
-        // bookWrapper.appendChild(deleteBtn);
+        let deleteBtn = showDeleteButton(bookIndex);
+        bookWrapper.appendChild(deleteBtn);
 
         bookDisplay.appendChild(bookWrapper);
+        bookIndex += 1;
     })
 }
 
@@ -69,13 +71,16 @@ function showBookInfo(book) {
     return div;
 }
 
-// function showDeleteButton() {
-//     let btn = document.createElement("button");
-//     btn.textContent = "Delete book";
-//     btn.setAttribute('data-book-no', globalBookIndex);
-//     return btn;
-// }
+function showDeleteButton(bookIndex) {
+    let btn = document.createElement("button");
+    btn.textContent = "Delete book";
+    btn.setAttribute('data-book-no', bookIndex);
+    btn.addEventListener("click", deleteBook);
+    return btn;
+}
 
-function deleteBook() {
-
+function deleteBook(e) {
+    let bookIndex = e.target.getAttribute("data-book-no");
+    myLibrary.splice(bookIndex, 1);
+    showBooks();
 }
