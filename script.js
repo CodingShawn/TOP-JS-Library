@@ -26,6 +26,12 @@ function addBook(event) {
     showBooks();
 }
 
+function loadBooks(bookTitle, bookAuthor, bookPages, readStatus) {
+    let newBook = new Book(bookTitle, bookAuthor, bookPages, readStatus);
+    myLibrary.push(newBook);
+    showBooks();
+}
+
 function showBooks() {
     clearDisplay(); //Clear display so no duplicate books will be shown
     bookIndex = 0
@@ -47,6 +53,7 @@ function showBooks() {
         bookWrapper.appendChild(deleteBtn);
 
         bookDisplay.appendChild(bookWrapper);
+
         bookIndex += 1;
     })
 }
@@ -99,5 +106,25 @@ function updateReadStatus(e) {
         element.textContent = "Read";
     } else if (element.textContent === "Unread") {
         element.textContent = "Incomplete";
+    }
+}
+
+function updateStorage() {
+    localStorage.setItem('library-data', JSON.stringify(myLibrary));
+}
+
+window.addEventListener('load', loadStorage);
+window.addEventListener('unload', updateStorage);
+
+function loadStorage() {
+    let libraryJSON = JSON.parse(localStorage.getItem('library-data'));
+    if (libraryJSON) {
+        for (i = 0; i <libraryJSON.length; i++) {
+            let bookTitle = libraryJSON[i].title;
+            let bookAuthor = libraryJSON[i].author;
+            let bookPages = libraryJSON[i].bookPages;
+            let readStatus = libraryJSON[i].readStatus;
+            loadBooks(bookTitle, bookAuthor, bookPages, readStatus);
+        }
     }
 }
