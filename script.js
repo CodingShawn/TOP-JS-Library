@@ -61,12 +61,17 @@ function showBookInfo(book) {
     let p1 = document.createElement("p");
     let authorInfo = document.createTextNode("Written by: " + book.author);
     p1.appendChild(authorInfo);
+    
     let p2 = document.createElement("p");
     let pagesInfo = document.createTextNode("Pages: " + book.bookPages);
     p2.appendChild(pagesInfo);
+    
     let p3 = document.createElement("p");
     let readStatus = document.createTextNode(book.readStatus);
+    p3.addEventListener("click", updateReadStatus);
+    p3.classList.add("read-status");
     p3.appendChild(readStatus);
+    
     div.appendChild(p1).appendChild(p2).appendChild(p3);
     return div;
 }
@@ -83,4 +88,16 @@ function deleteBook(e) {
     let bookIndex = e.target.getAttribute("data-book-no");
     myLibrary.splice(bookIndex, 1);
     showBooks();
+}
+
+function updateReadStatus(e) {
+    let element = e.target;
+    console.log(element.textContent);
+    if (element.textContent === "Read") {
+        element.textContent = "Unread";
+    } else if (element.textContent === "Incomplete") {
+        element.textContent = "Read";
+    } else if (element.textContent === "Unread") {
+        element.textContent = "Incomplete";
+    }
 }

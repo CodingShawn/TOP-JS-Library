@@ -20,8 +20,12 @@
         <input type="text" id="author" name="author"><br>
         <label for="pages">No. of Pages</label><br>
         <input type="text" id="pages" name="pages"><br>
-        <label for="readStatus">Read</label><br>
-        <input type="text" id="readStatus" name="readStatus"><br>
+        <label for="readStatus">Read Status</label><br>
+        <select form="readStatusForm" id="readStatus" name="readStatus">
+            <option value="Read">Read</option>
+            <option value="Incomplete">Incomplete</option>
+            <option value="Unread">Unread</option>
+        </select><br>
         <button type="submit">Add new book</button>
         
     </form>
