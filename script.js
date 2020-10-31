@@ -1,13 +1,11 @@
 const addBookForm = document.getElementById("addBookForm");
 const showBooksBtn = document.getElementById("showBooks");
 const bookDisplay = document.getElementById("bookDisplay");
-let bookIndex = 0;
 
 addBookForm.addEventListener("submit", addBook)
-showBooksBtn.addEventListener("click", showBooks);
+// showBooksBtn.addEventListener("click", showBooks);
 
 let myLibrary = [];
-let displayedBooks = [];
 
 function Book(bookTitle, bookAuthor, bookPages, readStatus) {
     this.title = bookTitle;
@@ -29,25 +27,30 @@ function addBook(event) {
 }
 
 function showBooks() {
+    clearDisplay(); //Clear display so no duplicate books will be shown
     myLibrary.forEach(book => {
-        if (!displayedBooks.includes(book)) {
-            let bookWrapper = document.createElement("div");
-            bookWrapper.classList.add("book-wrapper");
-            let div = document.createElement("div");
-            div.classList.add("book")
-            let p = document.createElement("p");
-            let title = document.createTextNode(book.title);
-            p.appendChild(title);
-            div.appendChild(title);
-            bookWrapper.appendChild(div);
+        let bookWrapper = document.createElement("div");
+        bookWrapper.classList.add("book-wrapper");
+        let div = document.createElement("div");
+        div.classList.add("book")
+        let p = document.createElement("p");
+        let title = document.createTextNode(book.title);
+        p.appendChild(title);
+        div.appendChild(title);
+        bookWrapper.appendChild(div);
 
-            let bookInfo = showBookInfo(book);
-            bookWrapper.appendChild(bookInfo);
+        let bookInfo = showBookInfo(book);
+        bookWrapper.appendChild(bookInfo);
 
-            bookDisplay.appendChild(bookWrapper);
-            displayedBooks.push(book);
-        }
+        // let deleteBtn = showDeleteButton();
+        // bookWrapper.appendChild(deleteBtn);
+
+        bookDisplay.appendChild(bookWrapper);
     })
+}
+
+function clearDisplay() {
+    bookDisplay.innerHTML = "";
 }
 
 function showBookInfo(book) {
@@ -64,4 +67,15 @@ function showBookInfo(book) {
     p3.appendChild(readStatus);
     div.appendChild(p1).appendChild(p2).appendChild(p3);
     return div;
+}
+
+// function showDeleteButton() {
+//     let btn = document.createElement("button");
+//     btn.textContent = "Delete book";
+//     btn.setAttribute('data-book-no', globalBookIndex);
+//     return btn;
+// }
+
+function deleteBook() {
+
 }
